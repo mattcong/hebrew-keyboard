@@ -13,36 +13,43 @@
   <body>
     <div class="global-container">
       <div class="keyboard-container">
-        <div class="text-field-container">
-          <input type="text" class="main-input" id="input" dir="rtl" />
-        </div>
-        <div id="keyboard">
-          <div class="key-container">
-            <div class="key-placeholder"></div>
-            <button class="key" title="Aleph">א</button>
-            <button class="key" title="Bet">ב</button>
-            <button class="key" title="Gimel">ג</button>
-            <button class="key" title="Dalet">ד</button>
-            <button class="key" title="He">ה</button>
-            <button class="key" title="Waw">ו</button>
-            <button class="key" title="Zayin">ז</button>
-            <button class="key" title="Chet">ח</button>
-            <button class="key" title="Tet">ט</button>
-            <button class="key" title="Yod">י</button>
-            <button class="key" title="Kaf">כ</button>
-            <button class="key" title="Lamed">ל</button>
-            <button class="key" title="Mem">מ</button>
-            <button class="key" title="Nun">נ</button>
-            <button class="key" title="Samech">ס</button>
-            <button class="key" title="Ayin">ע</button>
-            <button class="key" title="Pe">פ</button>
-            <button class="key" title="Tasdi">צ</button>
-            <button class="key" title="Qof">ק</button>
-            <button class="key" title="Resh">ר</button>
-            <button class="key" title="Shin">ש</button>
-            <button class="key" title="Tav">ת</button>
-          </div>
-        </div>
+        <input type="text" class="main-input" id="input" dir="rtl" />
+
+        <button class="key letter" title="Kuf" data-char="ק">ק</button>
+        <button class="key letter" title="Resh" data-char="ר">ר</button>
+        <button class="key letter" title="Alef" data-char="א">א</button>
+        <button class="key letter" title="Tet" data-char="ט">ט</button>
+        <button class="key letter" title="Vav" data-char="ו">ו</button>
+        <button class="key letter" title="Final Nun" data-char="ן">ן</button>
+        <button class="key letter" title="Final Mem" data-char="ם">ם</button>
+        <button class="key letter" title="Pe" data-char="פ">פ</button>
+        <button class="key letter" title="Shin" data-char="ש">ש</button>
+        <button class="key letter" title="Dalet" data-char="ד">ד</button>
+
+        <button class="key letter" title="Gimel" data-char="ג">ג</button>
+        <button class="key letter" title="Kaf" data-char="כ">כ</button>
+        <button class="key letter" title="Ayin" data-char="ע">ע</button>
+        <button class="key letter" title="Yod" data-char="י">י</button>
+        <button class="key letter" title="Het" data-char="ח">ח</button>
+        <button class="key letter" title="Lamed" data-char="ל">ל</button>
+        <button class="key letter" title="Final Kaf" data-char="ך">ך</button>
+        <button class="key letter" title="Final Pe" data-char="ף">ף</button>
+        <button class="key letter" title="Zayin" data-char="ז">ז</button>
+        <button class="key letter" title="Samekh" data-char="ס">ס</button>
+
+        <button class="key letter" title="Bet" data-char="ב">ב</button>
+        <button class="key letter" title="He" data-char="ה">ה</button>
+        <button class="key letter" title="Nun" data-char="נ">נ</button>
+        <button class="key letter" title="Mem" data-char="מ">מ</button>
+        <button class="key letter" title="Tsadi" data-char="צ">צ</button>
+        <button class="key letter" title="Tav" data-char="ת">ת</button>
+        <button class="key letter" title="Final Tsadi" data-char="ץ">ץ</button>
+
+        <div class="placeholder" style="grid-column: span 3"></div>
+
+        <button class="key shift" title="Shift">&#8679;</button>
+        <button class="key space" title="Space">&nbsp;</button>
+        <button class="key bksp" id="backspaceKey" title="Backspace">&#9003;</button>
       </div>
     </div>
     <script src="script.js"></script>

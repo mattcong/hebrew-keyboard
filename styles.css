@@ -6,26 +6,19 @@
 }
 
 .keyboard-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
   gap: 8px;
-  max-width: fit-content;
   padding: 16px;
   border-radius: 3px;
 
   background-color: #f9f9f9;
 }
 
-.key-container {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-}
-
 .main-input {
+  grid-column: span 10;
   outline: none;
-  width: 98%;
-  padding: 4px 6px;
+  padding: 4px 10px;
   border: 1px solid #aaaaaa;
   border-radius: 3px;
 
@@ -41,10 +34,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  width: 50px;
-  height: 50px;
   border-radius: 3px;
+  height: 50px;
+  padding: 0 15px;
 
   color: #0e0e0e;
   border: 1px solid #aaaaaa;
@@ -62,7 +54,24 @@
   background-color: #e6e6e6;
 }
 
-.key-placeholder {
-  width: 50px;
+.letter {
+  grid-column: span 1;
+}
+
+.bksp {
+  grid-column: span 2;
+  font-size: 22px;
+}
+
+.shift {
+  grid-column: span 2;
+  font-size: 28px;
+}
+
+.space {
+  grid-column: span 6;
+}
+
+.placeholder {
   height: 50px;
 }
