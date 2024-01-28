@@ -46,16 +46,16 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+.key.pressed {
+  background-color: #e6e6e6;
+}
+
 .key:hover {
   background-color: #f4f4f4;
 }
 
 .key:active {
   background-color: #e6e6e6;
-}
-
-.letter {
-  grid-column: span 1;
 }
 
 .niqqud {
