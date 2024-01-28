@@ -1,4 +1,4 @@
-document.querySelectorAll(".letter, .space").forEach(function (key) {
+document.querySelectorAll(".letter, .space, .niqqud").forEach(function (key) {
   key.addEventListener("click", function () {
     const keyValue = key.textContent
     const textInput = document.getElementById("input")
