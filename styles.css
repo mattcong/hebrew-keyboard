@@ -1,3 +1,16 @@
+:root {
+  --controls-container-height: 35px;
+
+  --text: #0e0e0e;
+  --niqqud: #e61616;
+  --sofit: #d5a700;
+  --border: #aaaaaa;
+  --bg: #f9f9f9;
+  --key-bg: #fdfdfd;
+  --key-bg-hover: #f4f4f4;
+  --key-bg-active: #e6e6e6;
+}
+
 .global-container {
   height: 90vh;
   display: flex;
@@ -12,12 +25,12 @@
   grid-template-columns: repeat(10, 1fr);
   gap: 8px;
   padding: 16px;
-  padding-bottom: 34px;
+  padding-bottom: calc(var(--controls-container-height) + 5px);
   border-radius: 3px;
   width: 600px;
   height: 450px;
 
-  background-color: #f9f9f9;
+  background-color: var(--bg);
 }
 
 .controls-container {
@@ -26,7 +39,7 @@
   left: 0;
   right: 0;
   padding: 0 16px;
-  height: 35px;
+  height: var(--controls-container-height);
   display: flex;
   align-items: center;
 }
@@ -35,7 +48,7 @@
   grid-column: span 10;
   outline: none;
   padding: 4px 10px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid var(--border);
   border-radius: 3px;
 
   font-size: 38px;
@@ -54,32 +67,32 @@
   height: 50px;
   padding: 0 15px;
 
-  color: #0e0e0e;
-  border: 1px solid #aaaaaa;
-  background-color: #fdfdfd;
+  color: var(--text);
+  border: 1px solid var(--border);
+  background-color: var(--key-bg);
 
   font-size: 34px;
   font-family: "Times New Roman", Times, serif;
 }
 
-.key.pressed {
-  background-color: #e6e6e6;
+.key:hover {
+  background-color: var(--key-bg-hover);
 }
 
-.key:hover {
-  background-color: #f4f4f4;
+.key.pressed {
+  background-color: var(--key-bg-active);
 }
 
 .key:active {
-  background-color: #e6e6e6;
+  background-color: var(--key-bg-active);
 }
 
 .niqqud {
-  color: #e61616;
+  color: var(--niqqud);
 }
 
 .sofit {
-  color: #d5a700;
+  color: var(--sofit);
 }
 
 .bksp {
