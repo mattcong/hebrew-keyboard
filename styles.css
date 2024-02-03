@@ -1,18 +1,51 @@
 :root {
+  --keyboard-columns: repeat(10, minmax(50px, 1fr));
+  --keyboard-gap: 8px;
+  --keyboard-container-width: 750px;
+  --keyboard-container-height: 420px;
+  --global-container-height: 90vh;
   --controls-container-height: 35px;
+
+  --input-width: span 10;
+  --space-width: span 6;
+  --action-key-width: span 2;
+  --top-placeholder-width: span 8;
+  --bottom-placeholder-width: span 3;
+
+  --key-fs: 2.2rem;
+  --symbol-fs: 30px;
 
   --text: #0e0e0e;
   --niqqud: #e61616;
   --sofit: #d5a700;
-  --border: #aaaaaa;
-  --bg: #f9f9f9;
+  --border: #dedede;
+  --bg: #e8e8e8;
   --key-bg: #fdfdfd;
   --key-bg-hover: #f4f4f4;
-  --key-bg-active: #e6e6e6;
+  --key-bg-active: #e5e4e4;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --keyboard-columns: repeat(8, minmax(30px, 1fr));
+    --keyboard-gap: 5px;
+    --keyboard-container-width: 90vw;
+    --keyboard-container-height: 420px;
+    --global-container-height: auto;
+
+    --input-width: span 8;
+    --space-width: span 4;
+    --action-key-width: span 2;
+    --top-placeholder-width: span 4;
+    --bottom-placeholder-width: span 5;
+
+    --key-fs: 1.8rem;
+    --symbol-fs: 22px;
+  }
 }
 
 .global-container {
-  height: 90vh;
+  height: var(--global-container-height);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,13 +55,13 @@
 .keyboard-container {
   position: relative;
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 8px;
-  padding: 16px;
+  grid-template-columns: var(--keyboard-columns);
+  gap: var(--keyboard-gap);
+  padding: 12px;
   padding-bottom: calc(var(--controls-container-height) + 5px);
   border-radius: 3px;
-  width: 600px;
-  height: 450px;
+  width: var(--keyboard-container-width);
+  height: var(--keyboard-container-height);
 
   background-color: var(--bg);
 }
@@ -45,15 +78,17 @@
 }
 
 .main-input {
-  grid-column: span 10;
+  grid-column: var(--input-width);
   outline: none;
   padding: 4px 10px;
-  border: 1px solid var(--border);
+  margin: 0 0 5px 0;
+  border: none;
   border-radius: 3px;
 
-  font-size: 38px;
+  text-align: right;
+  font-size: calc(var(--key-fs) + 0.5rem);
   font-family: "Times New Roman", Times, serif;
-  letter-spacing: 1px;
+  letter-spacing: 0.1rem;
 }
 
 .key {
@@ -64,14 +99,12 @@
   align-items: center;
   justify-content: center;
   border-radius: 3px;
-  height: 50px;
-  padding: 0 15px;
+  padding: 6px 0;
 
   color: var(--text);
-  border: 1px solid var(--border);
   background-color: var(--key-bg);
 
-  font-size: 34px;
+  font-size: var(--key-fs);
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -96,19 +129,26 @@
 }
 
 .bksp {
-  grid-column: span 2;
-  font-size: 22px;
+  grid-column: var(--action-key-width);
 }
 
 .shift {
-  grid-column: span 2;
-  font-size: 28px;
+  grid-column: var(--action-key-width);
 }
 
 .space {
-  grid-column: span 6;
+  grid-column: var(--space-width);
 }
 
-.placeholder {
-  height: 50px;
+.top-placeholder {
+  grid-column: var(--top-placeholder-width);
+}
+
+.bottom-placeholder {
+  grid-column: var(--bottom-placeholder-width);
+}
+
+.action-symbol {
+  width: var(--symbol-fs);
+  height: var(--symbol-fs);
 }
