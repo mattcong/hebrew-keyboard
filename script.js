@@ -35,6 +35,17 @@ document.addEventListener("keydown", (event) => {
   }
 })
 
+let lastTap = 0
+
+document.addEventListener("touchstart", function (event) {
+  const currentTime = new Date().getTime()
+  const tapLength = currentTime - lastTap
+  if (tapLength < 300 && tapLength > 0) {
+    event.preventDefault()
+  }
+  lastTap = currentTime
+})
+
 document.addEventListener("keyup", function (event) {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
   keyElement.classList.remove("pressed")
