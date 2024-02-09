@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&family=Noto+Serif+Hebrew&display=swap");
 :root {
   --keyboard-columns: repeat(10, minmax(50px, 1fr));
   --keyboard-gap: 8px;
@@ -12,24 +13,27 @@
   --top-placeholder-width: span 8;
   --bottom-placeholder-width: span 3;
 
-  --key-fs: 2.2rem;
+  --key-fs: 2rem;
   --symbol-fs: 30px;
 
   --text: #0e0e0e;
   --niqqud: #e61616;
   --sofit: #d5a700;
   --border: #dedede;
-  --bg: #e8e8e8;
+  --bg: #e8e8e854;
   --key-bg: #fdfdfd;
   --key-bg-hover: #f4f4f4;
   --key-bg-active: #e5e4e4;
+
+  --sans: "Noto Sans Hebrew", sans-serif;
+  --serif: "Noto Serif Hebrew", serif;
 }
 
 @media (max-width: 768px) {
   :root {
     --keyboard-columns: repeat(8, minmax(30px, 1fr));
     --keyboard-gap: 5px;
-    --keyboard-container-width: 90vw;
+    --keyboard-container-width: 92vw;
     --keyboard-container-height: 420px;
     --global-container-height: auto;
 
@@ -39,9 +43,18 @@
     --top-placeholder-width: span 4;
     --bottom-placeholder-width: span 5;
 
-    --key-fs: 1.8rem;
+    --key-fs: 1.6rem;
     --symbol-fs: 22px;
   }
+}
+
+body {
+  background-image: url("bg.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #040105;
 }
 
 .global-container {
@@ -86,8 +99,8 @@
   border-radius: 3px;
 
   text-align: right;
-  font-size: calc(var(--key-fs) + 0.5rem);
-  font-family: "Times New Roman", Times, serif;
+  font-size: calc(var(--key-fs) + 0.6rem);
+  font-family: var(--serif);
   letter-spacing: 0.1rem;
 }
 
@@ -105,7 +118,7 @@
   background-color: var(--key-bg);
 
   font-size: var(--key-fs);
-  font-family: "Times New Roman", Times, serif;
+  font-family: var(--serif);
 }
 
 .key:hover {
@@ -151,4 +164,5 @@
 .action-symbol {
   width: var(--symbol-fs);
   height: var(--symbol-fs);
+  pointer-events: none;
 }
