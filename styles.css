@@ -13,7 +13,7 @@
   --top-placeholder-width: span 8;
   --bottom-placeholder-width: span 3;
 
-  --key-fs: 2rem;
+  --key-fs: 1.9rem;
   --symbol-fs: 30px;
 
   --text: #0e0e0e;
@@ -34,7 +34,7 @@
     --keyboard-columns: repeat(8, minmax(30px, 1fr));
     --keyboard-gap: 5px;
     --keyboard-container-width: 92vw;
-    --keyboard-container-height: 420px;
+    --keyboard-container-height: 460px;
     --global-container-height: auto;
 
     --input-width: span 8;
@@ -43,7 +43,7 @@
     --top-placeholder-width: span 4;
     --bottom-placeholder-width: span 5;
 
-    --key-fs: 1.6rem;
+    --key-fs: 1.65rem;
     --symbol-fs: 22px;
   }
 }
@@ -111,9 +111,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 40px;
   border-radius: 3px;
   padding: 6px 0;
-
+  position: relative;
   color: var(--text);
   background-color: var(--key-bg);
 
@@ -131,6 +132,23 @@ body {
 
 .key:active {
   background-color: var(--key-bg-active);
+}
+
+.letter {
+  pointer-events: none;
+}
+
+.qwerty {
+  pointer-events: none;
+  position: absolute;
+  bottom: 3px;
+  left: 5px;
+
+  font-size: calc(var(--key-fs) - 1.1rem);
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+
+  color: #3a3a3a;
 }
 
 .niqqud {
