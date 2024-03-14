@@ -1,5 +1,36 @@
+import { standardLayout } from "./standardLayout.js"
+import { insertCharAtCursor, applyBackspace } from "./utils.js"
+
+const vowelWrap = document.getElementById("vowel-wrap")
+const consonantWrap = document.getElementById("consonant-wrap")
+
+function renderLayout(layout, element) {
+  layout.forEach((key) => {
+    const button = document.createElement("button")
+    button.className = "key"
+    button.setAttribute("title", key.title)
+    button.setAttribute("data-char", key.dataChar)
+    button.setAttribute("data-key", key.dataKey)
+
+    const letterChar = document.createElement("span")
+    letterChar.className = "letter"
+    letterChar.textContent = key.letter
+
+    const qwertyChar = document.createElement("span")
+    qwertyChar.className = "qwerty"
+    qwertyChar.textContent = key.qwertyLetter
+
+    button.appendChild(letterChar)
+    button.appendChild(qwertyChar)
+
+    element.appendChild(button)
+  })
+}
+
+renderLayout(standardLayout.vowels, vowelWrap)
+renderLayout(standardLayout.consonants, consonantWrap)
+
 const textInput = document.getElementById("input")
-const keyboard = document.getElementById("keyboard")
 const keys = document.querySelectorAll(".key")
 
 const keyCodeToChar = {}
@@ -50,29 +81,3 @@ document.addEventListener("keyup", function (event) {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
   keyElement.classList.remove("pressed")
 })
-
-function insertCharAtCursor(inputElement, char) {
-  const { selectionStart, selectionEnd } = inputElement
-
-  const textBefore = inputElement.value.substring(0, selectionStart)
-  const textAfter = inputElement.value.substring(selectionEnd)
-
-  inputElement.value = textBefore + char + textAfter
-  const newPos = selectionStart + char.length
-  inputElement.setSelectionRange(newPos, newPos)
-  inputElement.focus()
-}
-
-function applyBackspace(inputElement) {
-  const { value, selectionStart, selectionEnd } = inputElement
-
-  // handle highlighted text
-  if (selectionStart === selectionEnd) {
-    inputElement.value = value.substring(0, selectionStart - 1) + value.substring(selectionStart)
-    inputElement.setSelectionRange(selectionStart - 1, selectionStart - 1)
-  } else {
-    inputElement.value = value.substring(0, selectionStart) + value.substring(selectionEnd)
-    inputElement.setSelectionRange(selectionStart, selectionStart)
-  }
-  inputElement.focus()
-}

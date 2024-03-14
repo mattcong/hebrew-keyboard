@@ -66,10 +66,9 @@ body {
 }
 
 .keyboard-container {
-  position: relative;
-  display: grid;
-  grid-template-columns: var(--keyboard-columns);
-  gap: var(--keyboard-gap);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
   padding: 12px;
   padding-bottom: calc(var(--controls-container-height) + 5px);
   border-radius: 3px;
@@ -77,6 +76,14 @@ body {
   height: var(--keyboard-container-height);
 
   background-color: var(--bg);
+}
+
+.vowel-wrap,
+.consonant-wrap,
+.key-wrap {
+  display: grid;
+  grid-template-columns: var(--keyboard-columns);
+  gap: var(--keyboard-gap);
 }
 
 .controls-container {
@@ -93,8 +100,8 @@ body {
 .main-input {
   grid-column: var(--input-width);
   outline: none;
-  padding: 4px 10px;
-  margin: 0 0 5px 0;
+  padding: 8px 10px;
+  margin: 0 0 4px 0;
   border: none;
   border-radius: 3px;
 
@@ -151,7 +158,7 @@ body {
   color: #3a3a3a;
 }
 
-.niqqud {
+.vowel-wrap .letter {
   color: var(--niqqud);
 }
 
