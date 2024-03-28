@@ -3,7 +3,7 @@
   --keyboard-columns: repeat(10, minmax(50px, 1fr));
   --keyboard-gap: 8px;
   --keyboard-container-width: 750px;
-  --keyboard-container-height: 420px;
+  --keyboard-container-height: 465px;
   --global-container-height: 90vh;
   --controls-container-height: 35px;
 
@@ -29,7 +29,7 @@
   --serif: "Noto Serif Hebrew", serif;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
   :root {
     --keyboard-columns: repeat(8, minmax(30px, 1fr));
     --keyboard-gap: 5px;
@@ -43,8 +43,15 @@
     --top-placeholder-width: span 4;
     --bottom-placeholder-width: span 5;
 
-    --key-fs: 1.65rem;
+    --key-fs: 1.87rem;
     --symbol-fs: 22px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  :root {
+    --key-fs: 1.71rem;
   }
 }
 
@@ -66,6 +73,7 @@ body {
 }
 
 .keyboard-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -118,7 +126,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px;
+  height: 48px;
   border-radius: 3px;
   padding: 6px 0;
   position: relative;
@@ -127,6 +135,11 @@ body {
 
   font-size: var(--key-fs);
   font-family: var(--serif);
+}
+
+.vowel-wrap .key,
+.key-wrap .key {
+  height: 38px;
 }
 
 .key:hover {
