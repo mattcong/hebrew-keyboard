@@ -3,10 +3,9 @@
   --keyboard-columns: repeat(10, minmax(50px, 1fr));
   --keyboard-gap: 8px;
   --keyboard-container-width: 750px;
-  --keyboard-container-height: 465px;
   --keyboard-container-padding: 12px;
   --global-container-padding: 60px 0;
-  --controls-container-height: 35px;
+  --controls-container-height: 50px;
 
   --input-width: span 10;
   --space-width: span 6;
@@ -35,7 +34,6 @@
     --keyboard-columns: repeat(8, minmax(30px, 1fr));
     --keyboard-gap: 5px;
     --keyboard-container-width: 93vw;
-    --keyboard-container-height: 518px;
     --global-container-padding: auto;
 
     --input-width: span 8;
@@ -51,7 +49,6 @@
 
 @media (max-width: 480px) {
   :root {
-    --keyboard-container-height: 518px;
     --keyboard-container-padding: 6px;
     --keyboard-gap: 3px;
 
@@ -70,7 +67,6 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: var(--keyboard-container-height);
   padding: var(--global-container-padding);
 }
 
@@ -83,7 +79,6 @@ body {
   padding-bottom: var(--controls-container-height);
   border-radius: 3px;
   width: var(--keyboard-container-width);
-  height: var(--keyboard-container-height);
 
   background-color: var(--bg);
 }
@@ -105,6 +100,7 @@ body {
   height: var(--controls-container-height);
   display: flex;
   align-items: center;
+  justify-content: space-between;
 }
 
 .main-input {
@@ -121,22 +117,42 @@ body {
   letter-spacing: 0.1rem;
 }
 
-.key {
+.key,
+.layout-button {
   all: unset;
   cursor: pointer;
   user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color: var(--text);
+}
+
+.key {
   height: 48px;
   border-radius: 3px;
   padding: 6px 0;
   position: relative;
-  color: var(--text);
-  background-color: var(--key-bg);
 
+  background-color: var(--key-bg);
   font-size: var(--key-fs);
   font-family: var(--serif);
+}
+
+.layout-button {
+  padding: 0 6px;
+  border-radius: 1px;
+
+  border: 2px solid var(--text);
+  font-weight: bold;
+  font-family: var(--sans);
+  color: var(--text);
+}
+
+.layout-button--active {
+  background-color: var(--key-bg);
+  border: 2px solid var(--key-bg);
 }
 
 .vowel-wrap .key,
@@ -161,17 +177,28 @@ body {
   padding-bottom: 3px;
 }
 
-.qwerty {
+.qwerty,
+.final-form {
   pointer-events: none;
   position: absolute;
-  bottom: 3px;
-  left: 5px;
 
-  font-size: calc(var(--key-fs) - 1.1rem);
+  font-size: calc(var(--key-fs) - 1.13rem);
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
 
   color: #3a3a3a;
+}
+
+.qwerty {
+  bottom: 3px;
+  left: 5px;
+}
+
+.final-form {
+  top: 3px;
+  right: 5px;
+
+  font-size: calc(var(--key-fs) - 1rem);
 }
 
 .vowel-wrap .letter {

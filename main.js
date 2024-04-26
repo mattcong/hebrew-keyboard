@@ -1,46 +1,77 @@
-import { standardLayout } from "./standardLayout.js"
+import { standardFlatLayout } from "./layouts/standardFlat.js"
+import { standardLayout } from "./layouts/standard.js"
 import { insertCharAtCursor, applyBackspace } from "./utils.js"
 
 const vowelWrap = document.getElementById("vowel-wrap")
 const consonantWrap = document.getElementById("consonant-wrap")
+const textInput = document.getElementById("input")
+
+let isShiftEnabled = false
+let currentLayout = "A"
+const keyCodeToChar = {}
 
 function renderLayout(layout, element) {
   layout.forEach((key) => {
+    const isBlank = key.letter === "blank"
+    const isFinalForm = isShiftEnabled && key.finalForm
+
     const button = document.createElement("button")
     button.className = "key"
-    button.setAttribute("title", key.title)
-    button.setAttribute("data-char", key.dataChar)
+    button.setAttribute("title", isBlank ? "" : key.title)
+    button.setAttribute("data-char", isBlank ? "" : isFinalForm ? key.finalForm : key.letter)
     button.setAttribute("data-key", key.dataKey)
 
     const letterChar = document.createElement("span")
     letterChar.className = "letter"
-    letterChar.textContent = key.letter
+    letterChar.textContent = isBlank ? "" : isFinalForm ? key.finalForm : key.letter
 
     const qwertyChar = document.createElement("span")
     qwertyChar.className = "qwerty"
     qwertyChar.textContent = key.qwertyLetter
 
+    const finalFormChar = document.createElement("span")
+    finalFormChar.className = "final-form"
+    finalFormChar.textContent = isBlank ? "" : isFinalForm ? key.letter : key.finalForm
+
     button.appendChild(letterChar)
     button.appendChild(qwertyChar)
+    button.appendChild(finalFormChar)
 
     element.appendChild(button)
   })
+
+  const keys = document.querySelectorAll(".key")
+
+  keys.forEach((key) => {
+    const dataKey = key.getAttribute("data-key")
+    const dataChar = key.getAttribute("data-char")
+    if (dataKey && dataChar) {
+      keyCodeToChar[dataKey] = dataChar
+    }
+  })
 }
 
-renderLayout(standardLayout.vowels, vowelWrap)
-renderLayout(standardLayout.consonants, consonantWrap)
-
-const textInput = document.getElementById("input")
-const keys = document.querySelectorAll(".key")
-
-const keyCodeToChar = {}
-keys.forEach((key) => {
-  const dataKey = key.getAttribute("data-key")
-  const dataChar = key.getAttribute("data-char")
-  if (dataKey && dataChar) {
-    keyCodeToChar[dataKey] = dataChar
+const clearLayout = () => {
+  while (consonantWrap.firstChild) {
+    consonantWrap.removeChild(consonantWrap.firstChild)
   }
-})
+}
+
+function toggleShift() {
+  isShiftEnabled = !isShiftEnabled
+
+  clearLayout()
+  renderLayout(standardLayout.consonants, consonantWrap)
+
+  if (isShiftEnabled) {
+    shiftSymbol.setAttribute("style", "fill: #0e0e0e")
+  } else {
+    shiftSymbol.setAttribute("style", "fill: none")
+  }
+}
+
+renderLayout(standardFlatLayout.vowels, vowelWrap)
+renderLayout(standardFlatLayout.consonants, consonantWrap)
 
 document.getElementById("keyboard").addEventListener("click", (event) => {
   if (event.target.classList.contains("key")) {
@@ -49,20 +80,40 @@ document.getElementById("keyboard").addEventListener("click", (event) => {
       insertCharAtCursor(textInput, char)
     } else if (event.target.id === "backspaceKey") {
       applyBackspace(textInput)
+    } else if (event.target.id === "shiftKey") {
+      toggleShift()
     }
   }
+})
+
+const layoutAKey = document.getElementById("layoutA")
+const layoutBKey = document.getElementById("layoutB")
+layoutAKey.addEventListener("click", function () {
+  currentLayout = "A"
+  layoutAKey.className = "layout-button layout-button--active"
+  layoutBKey.className = "layout-button"
+  clearLayout()
+  renderLayout(standardFlatLayout.consonants, consonantWrap)
+})
+layoutBKey.addEventListener("click", function () {
+  currentLayout = "B"
+  layoutBKey.className = "layout-button layout-button--active"
+  layoutAKey.className = "layout-button"
+  clearLayout()
+  renderLayout(standardLayout.consonants, consonantWrap)
 })
 
 document.addEventListener("keydown", (event) => {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
   keyElement.classList.add("pressed")
-
   if (keyCodeToChar[event.code]) {
     event.preventDefault()
     insertCharAtCursor(textInput, keyCodeToChar[event.code])
   } else if (event.code === "Backspace") {
     event.preventDefault()
     applyBackspace(textInput)
+  } else if (event.code === "ShiftLeft") {
+    toggleShift()
   }
 })
 
