@@ -37,9 +37,9 @@ const consonants = [
 
   { title: "He", dataKey: "KeyZ", letter: "ה", qwertyLetter: "Z" },
   { title: "Nun", dataKey: "KeyX", letter: "נ", qwertyLetter: "X", finalForm: "ן" },
-  { title: "Mem", dataKey: "KeyV", letter: "מ", qwertyLetter: "V", finalForm: "ם" },
-  { title: "Tsadi", dataKey: "KeyB", letter: "צ", qwertyLetter: "B", finalForm: "ץ" },
-  { title: "Tav", dataKey: "KeyN", letter: "ת", qwertyLetter: "N" },
+  { title: "Mem", dataKey: "KeyC", letter: "מ", qwertyLetter: "C", finalForm: "ם" },
+  { title: "Tsadi", dataKey: "KeyV", letter: "צ", qwertyLetter: "V", finalForm: "ץ" },
+  { title: "Tav", dataKey: "KeyB", letter: "ת", qwertyLetter: "B" },
 ]
 
 export const standardLayout = { vowels: vowels, consonants: consonants }

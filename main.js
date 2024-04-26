@@ -10,7 +10,7 @@ let isShiftEnabled = false
 let currentLayout = "A"
 const keyCodeToChar = {}
 
-function renderLayout(layout, element) {
+const renderLayout = (layout, element) => {
   layout.forEach((key) => {
     const isBlank = key.letter === "blank"
     const isFinalForm = isShiftEnabled && key.finalForm
@@ -57,17 +57,26 @@ const clearLayout = () => {
   }
 }
 
-function toggleShift() {
-  isShiftEnabled = !isShiftEnabled
+const resetShift = () => {
+  isShiftEnabled = false
+  shiftSymbol.setAttribute("style", "fill: none")
+}
 
-  clearLayout()
-  renderLayout(standardLayout.consonants, consonantWrap)
+const toggleShift = () => {
+  if (currentLayout === "A") {
+    return
+  }
+  
+  isShiftEnabled = !isShiftEnabled
 
   if (isShiftEnabled) {
     shiftSymbol.setAttribute("style", "fill: #0e0e0e")
   } else {
     shiftSymbol.setAttribute("style", "fill: none")
   }
+
+  clearLayout()
+  renderLayout(standardLayout.consonants, consonantWrap)
 }
 
 renderLayout(standardFlatLayout.vowels, vowelWrap)
@@ -93,6 +102,7 @@ layoutAKey.addEventListener("click", function () {
   layoutAKey.className = "layout-button layout-button--active"
   layoutBKey.className = "layout-button"
   clearLayout()
+  resetShift()
   renderLayout(standardFlatLayout.consonants, consonantWrap)
 })
 layoutBKey.addEventListener("click", function () {
@@ -100,6 +110,7 @@ layoutBKey.addEventListener("click", function () {
   layoutBKey.className = "layout-button layout-button--active"
   layoutAKey.className = "layout-button"
   clearLayout()
+  resetShift()
   renderLayout(standardLayout.consonants, consonantWrap)
 })
 
