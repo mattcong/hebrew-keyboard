@@ -45,7 +45,8 @@ const renderLayout = (layout, element) => {
   keys.forEach((key) => {
     const dataKey = key.getAttribute("data-key")
     const dataChar = key.getAttribute("data-char")
-    if (dataKey && dataChar) {
+    const isPresent = typeof dataKey === "string" && typeof dataChar === "string"
+    if (isPresent) {
       keyCodeToChar[dataKey] = dataChar
     }
   })
@@ -63,10 +64,10 @@ const resetShift = () => {
 }
 
 const toggleShift = () => {
-  if (currentLayout === "A") {
+  if (currentLayout === "B") {
     return
   }
-  
+
   isShiftEnabled = !isShiftEnabled
 
   if (isShiftEnabled) {
@@ -79,8 +80,8 @@ const toggleShift = () => {
   renderLayout(standardLayout.consonants, consonantWrap)
 }
 
-renderLayout(standardFlatLayout.vowels, vowelWrap)
-renderLayout(standardFlatLayout.consonants, consonantWrap)
+renderLayout(standardLayout.vowels, vowelWrap)
+renderLayout(standardLayout.consonants, consonantWrap)
 
 document.getElementById("keyboard").addEventListener("click", (event) => {
   if (event.target.classList.contains("key")) {
@@ -103,7 +104,7 @@ layoutAKey.addEventListener("click", function () {
   layoutBKey.className = "layout-button"
   clearLayout()
   resetShift()
-  renderLayout(standardFlatLayout.consonants, consonantWrap)
+  renderLayout(standardLayout.consonants, consonantWrap)
 })
 layoutBKey.addEventListener("click", function () {
   currentLayout = "B"
@@ -111,7 +112,7 @@ layoutBKey.addEventListener("click", function () {
   layoutAKey.className = "layout-button"
   clearLayout()
   resetShift()
-  renderLayout(standardLayout.consonants, consonantWrap)
+  renderLayout(standardFlatLayout.consonants, consonantWrap)
 })
 
 document.addEventListener("keydown", (event) => {
@@ -128,8 +129,12 @@ document.addEventListener("keydown", (event) => {
   }
 })
 
-let lastTap = 0
+document.addEventListener("keyup", function (event) {
+  const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
+  keyElement.classList.remove("pressed")
+})
 
+let lastTap = 0
 document.addEventListener("touchstart", function (event) {
   const currentTime = new Date().getTime()
   const tapLength = currentTime - lastTap
@@ -137,9 +142,4 @@ document.addEventListener("touchstart", function (event) {
     event.preventDefault()
   }
   lastTap = currentTime
-})
-
-document.addEventListener("keyup", function (event) {
-  const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
-  keyElement.classList.remove("pressed")
 })

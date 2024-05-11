@@ -146,6 +146,7 @@ body {
 
   border: 2px solid var(--text);
   font-weight: bold;
+  font-size: calc(var(--key-fs) - 0.8rem);
   font-family: var(--sans);
   color: var(--text);
 }
