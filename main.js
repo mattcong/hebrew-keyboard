@@ -1,5 +1,6 @@
 import { standardFlatLayout } from "./layouts/standardFlat.js"
 import { standardLayout } from "./layouts/standard.js"
+import { paleoLayout } from "./layouts/paleo.js"
 import { insertCharAtCursor, applyBackspace } from "./utils.js"
 
 const vowelWrap = document.getElementById("vowel-wrap")
@@ -64,20 +65,18 @@ const resetShift = () => {
 }
 
 const toggleShift = () => {
-  if (currentLayout === "B") {
-    return
+  if (currentLayout === "A") {
+    isShiftEnabled = !isShiftEnabled
+
+    if (isShiftEnabled) {
+      shiftSymbol.setAttribute("style", "fill: #0e0e0e")
+    } else {
+      shiftSymbol.setAttribute("style", "fill: none")
+    }
+
+    clearLayout()
+    renderLayout(standardLayout.consonants, consonantWrap)
   }
-
-  isShiftEnabled = !isShiftEnabled
-
-  if (isShiftEnabled) {
-    shiftSymbol.setAttribute("style", "fill: #0e0e0e")
-  } else {
-    shiftSymbol.setAttribute("style", "fill: none")
-  }
-
-  clearLayout()
-  renderLayout(standardLayout.consonants, consonantWrap)
 }
 
 renderLayout(standardLayout.vowels, vowelWrap)
@@ -98,10 +97,13 @@ document.getElementById("keyboard").addEventListener("click", (event) => {
 
 const layoutAKey = document.getElementById("layoutA")
 const layoutBKey = document.getElementById("layoutB")
+const layoutCKey = document.getElementById("layoutC")
+
 layoutAKey.addEventListener("click", function () {
   currentLayout = "A"
   layoutAKey.className = "layout-button layout-button--active"
   layoutBKey.className = "layout-button"
+  layoutCKey.className = "layout-button"
   clearLayout()
   resetShift()
   renderLayout(standardLayout.consonants, consonantWrap)
@@ -110,9 +112,19 @@ layoutBKey.addEventListener("click", function () {
   currentLayout = "B"
   layoutBKey.className = "layout-button layout-button--active"
   layoutAKey.className = "layout-button"
+  layoutCKey.className = "layout-button"
   clearLayout()
   resetShift()
   renderLayout(standardFlatLayout.consonants, consonantWrap)
+})
+layoutCKey.addEventListener("click", function () {
+  currentLayout = "C"
+  layoutCKey.className = "layout-button layout-button--active"
+  layoutBKey.className = "layout-button"
+  layoutAKey.className = "layout-button"
+  clearLayout()
+  resetShift()
+  renderLayout(paleoLayout.consonants, consonantWrap)
 })
 
 document.addEventListener("keydown", (event) => {
@@ -131,7 +143,7 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("keyup", function (event) {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
-  keyElement.classList.remove("pressed")
+  keyElement?.classList.remove("pressed")
 })
 
 let lastTap = 0
