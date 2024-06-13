@@ -13,13 +13,31 @@ export const insertCharAtCursor = (inputElement, char) => {
 export const applyBackspace = (inputElement) => {
   const { value, selectionStart, selectionEnd } = inputElement
 
+  const chars = Array.from(value)
+
+  const charStartIndex = Array.from(value.slice(0, selectionStart)).length
+  const charEndIndex = Array.from(value.slice(0, selectionEnd)).length
+
   // handle highlighted text
-  if (selectionStart === selectionEnd) {
-    inputElement.value = value.substring(0, selectionStart - 1) + value.substring(selectionStart)
-    inputElement.setSelectionRange(selectionStart - 1, selectionStart - 1)
+  if (charStartIndex === charEndIndex) {
+    if (charStartIndex > 0) {
+      const deletionIndex = charStartIndex - 1
+      chars.splice(deletionIndex, 1)
+
+      const newValue = chars.join("")
+      inputElement.value = newValue
+
+      const newSelectionStart = Array.from(newValue).slice(0, deletionIndex).join("").length
+      inputElement.setSelectionRange(newSelectionStart, newSelectionStart)
+    }
   } else {
-    inputElement.value = value.substring(0, selectionStart) + value.substring(selectionEnd)
-    inputElement.setSelectionRange(selectionStart, selectionStart)
+    chars.splice(charStartIndex, charEndIndex - charStartIndex)
+
+    const newValue = chars.join("")
+    inputElement.value = newValue
+
+    const newSelectionStart = Array.from(newValue).slice(0, charStartIndex).join("").length
+    inputElement.setSelectionRange(newSelectionStart, newSelectionStart)
   }
   inputElement.focus()
 }
