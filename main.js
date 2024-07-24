@@ -1,6 +1,7 @@
 import { standardFlatLayout } from "./layouts/standardFlat.js"
 import { standardLayout } from "./layouts/standard.js"
 import { paleoLayout } from "./layouts/paleo.js"
+import { aramaicLayout } from "./layouts/aramaic.js"
 import { insertCharAtCursor, applyBackspace } from "./utils.js"
 
 const vowelWrap = document.getElementById("vowel-wrap")
@@ -98,12 +99,14 @@ document.getElementById("keyboard").addEventListener("click", (event) => {
 const layoutAKey = document.getElementById("layoutA")
 const layoutBKey = document.getElementById("layoutB")
 const layoutCKey = document.getElementById("layoutC")
+const layoutDKey = document.getElementById("layoutD")
 
 layoutAKey.addEventListener("click", function () {
   currentLayout = "A"
   layoutAKey.className = "layout-button layout-button--active"
   layoutBKey.className = "layout-button"
   layoutCKey.className = "layout-button"
+  layoutDKey.className = "layout-button"
   clearLayout()
   resetShift()
   renderLayout(standardLayout.consonants, consonantWrap)
@@ -113,6 +116,7 @@ layoutBKey.addEventListener("click", function () {
   layoutBKey.className = "layout-button layout-button--active"
   layoutAKey.className = "layout-button"
   layoutCKey.className = "layout-button"
+  layoutDKey.className = "layout-button"
   clearLayout()
   resetShift()
   renderLayout(standardFlatLayout.consonants, consonantWrap)
@@ -120,11 +124,22 @@ layoutBKey.addEventListener("click", function () {
 layoutCKey.addEventListener("click", function () {
   currentLayout = "C"
   layoutCKey.className = "layout-button layout-button--active"
-  layoutBKey.className = "layout-button"
   layoutAKey.className = "layout-button"
+  layoutBKey.className = "layout-button"
+  layoutDKey.className = "layout-button"
   clearLayout()
   resetShift()
   renderLayout(paleoLayout.consonants, consonantWrap)
+})
+layoutDKey.addEventListener("click", function () {
+  currentLayout = "D"
+  layoutDKey.className = "layout-button layout-button--active"
+  layoutAKey.className = "layout-button"
+  layoutBKey.className = "layout-button"
+  layoutCKey.className = "layout-button"
+  clearLayout()
+  resetShift()
+  renderLayout(aramaicLayout.consonants, consonantWrap)
 })
 
 document.addEventListener("keydown", (event) => {
