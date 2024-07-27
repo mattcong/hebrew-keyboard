@@ -1,7 +1,7 @@
-import { standardFlatLayout } from "./layouts/standardFlat.js"
-import { standardLayout } from "./layouts/standard.js"
-import { paleoLayout } from "./layouts/paleo.js"
-import { aramaicLayout } from "./layouts/aramaic.js"
+import { standardFlatLayout } from "../layouts/standardFlat.js"
+import { standardLayout } from "../layouts/standard.js"
+import { paleoLayout } from "../layouts/paleo.js"
+import { aramaicLayout } from "../layouts/aramaic.js"
 import { insertCharAtCursor, applyBackspace } from "./utils.js"
 
 const vowelWrap = document.getElementById("vowel-wrap")
