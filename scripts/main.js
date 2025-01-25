@@ -142,9 +142,31 @@ layoutDKey.addEventListener("click", function () {
   renderLayout(aramaicLayout.consonants, consonantWrap)
 })
 
+const numbers = [
+  "Digit1",
+  "Digit2",
+  "Digit3",
+  "Digit4",
+  "Digit5",
+  "Digit6",
+  "Digit7",
+  "Digit8",
+  "Digit9",
+  "Digit0",
+]
+
 document.addEventListener("keydown", (event) => {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
+  if (!keyElement) {
+    return
+  }
   keyElement.classList.add("pressed")
+  console.log(event.code)
+  if (event.ctrlKey) {
+    if (event.key === "c" || event.key === "v" || numbers.includes(event.code)) {
+      return
+    }
+  }
   if (keyCodeToChar[event.code]) {
     event.preventDefault()
     insertCharAtCursor(textInput, keyCodeToChar[event.code])
