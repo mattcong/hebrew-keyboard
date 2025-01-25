@@ -26,4 +26,6 @@ export const aramaicLayout = {
   KeyC: { title: "Mem", letter: "ܡ", qwertyLetter: "C" },
   KeyV: { title: "Tsade", letter: "ܨ", qwertyLetter: "V" },
   KeyB: { title: "Taw", letter: "ܬ", qwertyLetter: "B" },
+  KeyN: { title: "blank", letter: "blank", qwertyLetter: "N" },
+  KeyM: { title: "blank", letter: "blank", qwertyLetter: "M" },
 }

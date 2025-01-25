@@ -2,11 +2,13 @@
 :root {
   --base-keyboard-columns: repeat(10, minmax(50px, 1fr));
   --keyboard-gap: 8px;
-  --key-margin: 4px 3px;
   --keyboard-container-width: 750px;
   --keyboard-container-padding: 12px;
   --global-container-padding: 60px 0;
   --controls-container-height: 50px;
+
+  --key-margin: 4px 3px;
+  --action-key-height: 36px;
 
   --input-width: span 10;
   --space-width: span 6;
@@ -19,7 +21,7 @@
 
   --text: #0e0e0e;
   --niqqud: #e61616;
-  --sofit: #d5a700;
+  --sofit: #c49d10;
   --border: #dedede;
   --bg: #e8e8e854;
   --key-bg: #fdfdfd;
@@ -34,11 +36,13 @@
   :root {
     --base-keyboard-columns: repeat(10, minmax(10px, 1fr));
     --keyboard-gap: 5px;
-    --key-margin: 2px 2px;
     --keyboard-container-width: 93vw;
     --global-container-padding: auto;
     --top-placeholder-width: span 4;
     --bottom-placeholder-width: span 5;
+
+    --key-margin: 2px 2px;
+    --action-key-height: 32px;
 
     --key-fs: 1.87rem;
     --symbol-fs: 22px;
@@ -50,13 +54,15 @@
     --keyboard-container-padding: 6px;
     --keyboard-gap: 3px;
 
+    --action-key-height: 30px;
+
     --key-fs: 1.6rem;
   }
 }
 
 body {
   background-image: url("bg.jpg");
-  background-size: 100% 100%;
+  background-size: 100vw 165vh; 
   background-color: #040105;
 }
 
@@ -137,20 +143,8 @@ body {
   font-family: var(--serif);
 }
 
-.layout-button {
-  padding: 0 6px;
-  border-radius: 1px;
-
-  border: 2px solid var(--text);
-  font-weight: bold;
-  font-size: calc(var(--key-fs) - 0.8rem);
-  font-family: var(--sans);
-  color: var(--text);
-}
-
-.layout-button--active {
-  background-color: var(--key-bg);
-  border: 2px solid var(--key-bg);
+.key--action {
+  height: var(--action-key-height);
 }
 
 .key:hover {
@@ -168,6 +162,22 @@ body {
 .letter {
   pointer-events: none;
   padding-bottom: 3px;
+}
+
+.layout-button {
+  padding: 0 6px;
+  border-radius: 1px;
+
+  border: 2px solid var(--text);
+  font-weight: bold;
+  font-size: calc(var(--key-fs) - 0.8rem);
+  font-family: var(--sans);
+  color: var(--text);
+}
+
+.layout-button--active {
+  background-color: var(--key-bg);
+  border: 2px solid var(--key-bg);
 }
 
 .qwerty,

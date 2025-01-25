@@ -39,4 +39,6 @@ export const standardLayout = {
   KeyC: { title: "Mem", letter: "מ", qwertyLetter: "C", finalForm: "ם" },
   KeyV: { title: "Tsadi", letter: "צ", qwertyLetter: "V", finalForm: "ץ" },
   KeyB: { title: "Tav", letter: "ת", qwertyLetter: "B" },
+  KeyN: { title: "blank", letter: "blank", qwertyLetter: "N" },
+  KeyM: { title: "blank", letter: "blank", qwertyLetter: "M" },
 }

@@ -16,7 +16,12 @@
         <input type="text" class="main-input" id="input" dir="rtl" />
         <div class="alphabet-wrap" id="alphabet-wrap"></div>
         <div class="key-wrap">
-          <button class="key shift" id="shiftKey" title="Shift" data-key="ShiftLeft">
+          <button
+            class="key key--action key--action shift"
+            id="shiftKey"
+            title="Shift"
+            data-key="ShiftLeft"
+          >
             <svg
               class="action-symbol"
               id="shiftSymbol"
@@ -33,10 +38,15 @@
               />
             </svg>
           </button>
-          <button class="key space" title="Space" data-key="Space" data-char="&nbsp;">
+          <button class="key key--action space" title="Space" data-key="Space" data-char="&nbsp;">
             &nbsp;
           </button>
-          <button class="key bksp" id="backspaceKey" title="Backspace" data-key="Backspace">
+          <button
+            class="key key--action bksp"
+            id="backspaceKey"
+            title="Backspace"
+            data-key="Backspace"
+          >
             <svg
               class="action-symbol"
               width="32"

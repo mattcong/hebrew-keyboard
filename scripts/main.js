@@ -3,7 +3,7 @@ import { standardLayout } from "../layouts/standard.js"
 import { paleoLayout } from "../layouts/paleo.js"
 import { aramaicLayout } from "../layouts/aramaic.js"
 import { insertCharAtCursor, applyBackspace } from "./textInput.js"
-import { ROW_0_KEYS, ROW_1_KEYS, ROW_2_KEYS, ROW_3_KEYS } from "./constants.js"
+import { ROW_0_KEYS, ROW_1_KEYS, ROW_2_KEYS, ROW_3_KEYS, FINAL_FORMS } from "./constants.js"
 
 const alphabetWrap = document.getElementById("alphabet-wrap")
 const textInput = document.getElementById("input")
@@ -37,21 +37,28 @@ const renderLayout = (layout, container, isShiftEnabled = false) => {
       }
 
       const isBlank = keyData.letter === "blank"
-      const isFinalForm = isShiftEnabled && keyData.finalForm
+      const isToggledFinalForm = isShiftEnabled && keyData.finalForm
+      const isFinalFormCharacter = FINAL_FORMS.includes(keyData.letter)
       const isVowel = ROW_0_KEYS.includes(keyCode)
 
       const button = document.createElement("button")
-      button.className = `key ${isVowel ? "vowel" : ""}`
+      button.className = `key ${
+        isVowel ? "vowel" : isToggledFinalForm || isFinalFormCharacter ? "sofit" : ""
+      }`
       button.setAttribute("title", isBlank ? "" : keyData.title)
       button.setAttribute(
         "data-char",
-        isBlank ? "" : isFinalForm ? keyData.finalForm : keyData.letter
+        isBlank ? "" : isToggledFinalForm ? keyData.finalForm : keyData.letter
       )
       button.setAttribute("data-key", keyCode)
 
       const letterChar = document.createElement("span")
       letterChar.className = `letter ${isVowel ? "vowel" : ""}`
-      letterChar.textContent = isBlank ? "" : isFinalForm ? keyData.finalForm : keyData.letter
+      letterChar.textContent = isBlank
+        ? ""
+        : isToggledFinalForm
+        ? keyData.finalForm
+        : keyData.letter
 
       const qwertyChar = document.createElement("span")
       qwertyChar.className = "qwerty"
@@ -61,7 +68,7 @@ const renderLayout = (layout, container, isShiftEnabled = false) => {
       finalFormChar.className = "final-form"
       finalFormChar.textContent = isBlank
         ? ""
-        : isFinalForm
+        : isToggledFinalForm
         ? keyData.letter
         : keyData.finalForm || ""
 
