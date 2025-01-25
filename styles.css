@@ -1,7 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew&family=Noto+Serif+Hebrew&display=swap");
 :root {
-  --keyboard-columns: repeat(10, minmax(50px, 1fr));
+  --base-keyboard-columns: repeat(10, minmax(50px, 1fr));
   --keyboard-gap: 8px;
+  --key-margin: 4px 3px;
   --keyboard-container-width: 750px;
   --keyboard-container-padding: 12px;
   --global-container-padding: 60px 0;
@@ -31,14 +32,11 @@
 
 @media (max-width: 760px) {
   :root {
-    --keyboard-columns: repeat(8, minmax(30px, 1fr));
+    --base-keyboard-columns: repeat(10, minmax(10px, 1fr));
     --keyboard-gap: 5px;
+    --key-margin: 2px 2px;
     --keyboard-container-width: 93vw;
     --global-container-padding: auto;
-
-    --input-width: span 8;
-    --space-width: span 4;
-    --action-key-width: span 2;
     --top-placeholder-width: span 4;
     --bottom-placeholder-width: span 5;
 
@@ -52,7 +50,7 @@
     --keyboard-container-padding: 6px;
     --keyboard-gap: 3px;
 
-    --key-fs: 1.71rem;
+    --key-fs: 1.6rem;
   }
 }
 
@@ -83,11 +81,9 @@ body {
   background-color: var(--bg);
 }
 
-.vowel-wrap,
-.consonant-wrap,
 .key-wrap {
   display: grid;
-  grid-template-columns: var(--keyboard-columns);
+  grid-template-columns: var(--base-keyboard-columns);
   gap: var(--keyboard-gap);
 }
 
@@ -130,8 +126,9 @@ body {
 }
 
 .key {
-  height: 48px;
+  height: 38px;
   border-radius: 3px;
+  margin: var(--key-margin);
   padding: 6px 0;
   position: relative;
 
@@ -154,11 +151,6 @@ body {
 .layout-button--active {
   background-color: var(--key-bg);
   border: 2px solid var(--key-bg);
-}
-
-.vowel-wrap .key,
-.key-wrap .key {
-  height: 38px;
 }
 
 .key:hover {
@@ -202,8 +194,9 @@ body {
   font-size: calc(var(--key-fs) - 1rem);
 }
 
-.vowel-wrap .letter {
+.vowel {
   color: var(--niqqud);
+  margin-bottom: 8px;
 }
 
 .sofit {

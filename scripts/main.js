@@ -3,66 +3,85 @@ import { standardLayout } from "../layouts/standard.js"
 import { paleoLayout } from "../layouts/paleo.js"
 import { aramaicLayout } from "../layouts/aramaic.js"
 import { insertCharAtCursor, applyBackspace } from "./textInput.js"
+import { ROW_0_KEYS, ROW_1_KEYS, ROW_2_KEYS, ROW_3_KEYS } from "./constants.js"
 
-const vowelWrap = document.getElementById("vowel-wrap")
-const consonantWrap = document.getElementById("consonant-wrap")
+const alphabetWrap = document.getElementById("alphabet-wrap")
 const textInput = document.getElementById("input")
 
 let isShiftEnabled = false
 let currentLayout = "A"
 const keyCodeToChar = {}
 
-const renderLayout = (layout, element) => {
-  layout.forEach((key) => {
-    const isBlank = key.letter === "blank"
-    const isFinalForm = isShiftEnabled && key.finalForm
+/**
+ * @param {Object} layout
+ * @param {HTMLElement} container
+ * @param {Boolean} isShiftEnabled
+ */
+const renderLayout = (layout, container, isShiftEnabled = false) => {
+  const hasVowels = Object.keys(layout).includes(ROW_0_KEYS[0])
+  const rows = [hasVowels ? ROW_0_KEYS : [], ROW_1_KEYS, ROW_2_KEYS, ROW_3_KEYS]
 
-    const button = document.createElement("button")
-    button.className = "key"
-    button.setAttribute("title", isBlank ? "" : key.title)
-    button.setAttribute("data-char", isBlank ? "" : isFinalForm ? key.finalForm : key.letter)
-    button.setAttribute("data-key", key.dataKey)
+  container.innerHTML = ""
 
-    const letterChar = document.createElement("span")
-    letterChar.className = "letter"
-    letterChar.textContent = isBlank ? "" : isFinalForm ? key.finalForm : key.letter
+  rows.forEach((rowKeys) => {
+    const rowContainer = document.createElement("div")
+    rowContainer.classList.add("keyboard-row")
+    rowContainer.style.display = "grid"
+    rowContainer.style.gridTemplateColumns = `repeat(${rowKeys.length}, minmax(20px, 80px))`
+    rowContainer.style.placeContent = "center"
 
-    const qwertyChar = document.createElement("span")
-    qwertyChar.className = "qwerty"
-    qwertyChar.textContent = key.qwertyLetter
+    rowKeys.forEach((keyCode) => {
+      const keyData = layout[keyCode]
+      if (!keyData) {
+        return
+      }
 
-    const finalFormChar = document.createElement("span")
-    finalFormChar.className = "final-form"
-    finalFormChar.textContent = isBlank ? "" : isFinalForm ? key.letter : key.finalForm
+      const isBlank = keyData.letter === "blank"
+      const isFinalForm = isShiftEnabled && keyData.finalForm
+      const isVowel = ROW_0_KEYS.includes(keyCode)
 
-    button.appendChild(letterChar)
-    button.appendChild(qwertyChar)
-    button.appendChild(finalFormChar)
+      const button = document.createElement("button")
+      button.className = `key ${isVowel ? "vowel" : ""}`
+      button.setAttribute("title", isBlank ? "" : keyData.title)
+      button.setAttribute(
+        "data-char",
+        isBlank ? "" : isFinalForm ? keyData.finalForm : keyData.letter
+      )
+      button.setAttribute("data-key", keyCode)
 
-    element.appendChild(button)
+      const letterChar = document.createElement("span")
+      letterChar.className = `letter ${isVowel ? "vowel" : ""}`
+      letterChar.textContent = isBlank ? "" : isFinalForm ? keyData.finalForm : keyData.letter
+
+      const qwertyChar = document.createElement("span")
+      qwertyChar.className = "qwerty"
+      qwertyChar.textContent = keyData.qwertyLetter || ""
+
+      const finalFormChar = document.createElement("span")
+      finalFormChar.className = "final-form"
+      finalFormChar.textContent = isBlank
+        ? ""
+        : isFinalForm
+        ? keyData.letter
+        : keyData.finalForm || ""
+
+      button.appendChild(letterChar)
+      button.appendChild(qwertyChar)
+      button.appendChild(finalFormChar)
+
+      rowContainer.appendChild(button)
+    })
+    container.appendChild(rowContainer)
   })
 
-  const keys = document.querySelectorAll(".key")
-
+  const keys = container.querySelectorAll(".key")
   keys.forEach((key) => {
     const dataKey = key.getAttribute("data-key")
     const dataChar = key.getAttribute("data-char")
-    const isPresent = typeof dataKey === "string" && typeof dataChar === "string"
-    if (isPresent) {
+    if (typeof dataKey === "string" && typeof dataChar === "string") {
       keyCodeToChar[dataKey] = dataChar
     }
   })
-}
-
-const clearLayout = () => {
-  while (consonantWrap.firstChild) {
-    consonantWrap.removeChild(consonantWrap.firstChild)
-  }
-}
-
-const resetShift = () => {
-  isShiftEnabled = false
-  shiftSymbol.setAttribute("style", "fill: none")
 }
 
 const toggleShift = () => {
@@ -74,14 +93,16 @@ const toggleShift = () => {
     } else {
       shiftSymbol.setAttribute("style", "fill: none")
     }
-
-    clearLayout()
-    renderLayout(standardLayout.consonants, consonantWrap)
+    renderLayout(standardLayout, alphabetWrap, isShiftEnabled)
   }
 }
 
-renderLayout(standardLayout.vowels, vowelWrap)
-renderLayout(standardLayout.consonants, consonantWrap)
+const resetShift = () => {
+  isShiftEnabled = false
+  shiftSymbol.setAttribute("style", "fill: none")
+}
+
+renderLayout(standardLayout, alphabetWrap, isShiftEnabled)
 
 document.getElementById("keyboard").addEventListener("click", (event) => {
   if (event.target.classList.contains("key")) {
@@ -107,9 +128,8 @@ layoutAKey.addEventListener("click", function () {
   layoutBKey.className = "layout-button"
   layoutCKey.className = "layout-button"
   layoutDKey.className = "layout-button"
-  clearLayout()
   resetShift()
-  renderLayout(standardLayout.consonants, consonantWrap)
+  renderLayout(standardLayout, alphabetWrap, isShiftEnabled)
 })
 layoutBKey.addEventListener("click", function () {
   currentLayout = "B"
@@ -117,9 +137,8 @@ layoutBKey.addEventListener("click", function () {
   layoutAKey.className = "layout-button"
   layoutCKey.className = "layout-button"
   layoutDKey.className = "layout-button"
-  clearLayout()
   resetShift()
-  renderLayout(standardFlatLayout.consonants, consonantWrap)
+  renderLayout(standardFlatLayout, alphabetWrap, isShiftEnabled)
 })
 layoutCKey.addEventListener("click", function () {
   currentLayout = "C"
@@ -127,9 +146,8 @@ layoutCKey.addEventListener("click", function () {
   layoutAKey.className = "layout-button"
   layoutBKey.className = "layout-button"
   layoutDKey.className = "layout-button"
-  clearLayout()
   resetShift()
-  renderLayout(paleoLayout.consonants, consonantWrap)
+  renderLayout(paleoLayout, alphabetWrap, isShiftEnabled)
 })
 layoutDKey.addEventListener("click", function () {
   currentLayout = "D"
@@ -137,23 +155,9 @@ layoutDKey.addEventListener("click", function () {
   layoutAKey.className = "layout-button"
   layoutBKey.className = "layout-button"
   layoutCKey.className = "layout-button"
-  clearLayout()
   resetShift()
-  renderLayout(aramaicLayout.consonants, consonantWrap)
+  renderLayout(aramaicLayout, alphabetWrap, isShiftEnabled)
 })
-
-const numbers = [
-  "Digit1",
-  "Digit2",
-  "Digit3",
-  "Digit4",
-  "Digit5",
-  "Digit6",
-  "Digit7",
-  "Digit8",
-  "Digit9",
-  "Digit0",
-]
 
 document.addEventListener("keydown", (event) => {
   const keyElement = document.querySelector(`.key[data-key="${event.code}"]`)
@@ -161,9 +165,8 @@ document.addEventListener("keydown", (event) => {
     return
   }
   keyElement.classList.add("pressed")
-  console.log(event.code)
   if (event.ctrlKey) {
-    if (event.key === "c" || event.key === "v" || numbers.includes(event.code)) {
+    if (event.key === "c" || event.key === "v" || ROW_0_KEYS.includes(event.code)) {
       return
     }
   }
