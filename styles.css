@@ -32,6 +32,16 @@
   --serif: "Noto Serif Hebrew", serif;
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: #ffffff;
+    --bg: #e8e8e854;
+    --key-bg: #111111;
+    --key-bg-hover: #070707;
+    --key-bg-active: #040404;
+  }
+}
+
 @media (max-width: 760px) {
   :root {
     --base-keyboard-columns: repeat(10, minmax(10px, 1fr));
@@ -62,7 +72,7 @@
 
 body {
   background-image: url("bg.jpg");
-  background-size: 100vw 165vh; 
+  background-size: 100vw 165vh;
   background-color: #040105;
 }
 
@@ -195,12 +205,14 @@ body {
 .qwerty {
   bottom: 3px;
   left: 5px;
+  color: var(--text);
 }
 
 .final-form {
   top: 3px;
   right: 5px;
 
+  color: var(--sofit);
   font-size: calc(var(--key-fs) - 1rem);
 }
 
@@ -219,6 +231,10 @@ body {
 
 .shift {
   grid-column: var(--action-key-width);
+}
+
+.stroke {
+  stroke: var(--text);
 }
 
 .space {
